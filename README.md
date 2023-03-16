@@ -1,4 +1,4 @@
-# sample-for-possible-csrf-token-bug-in-spring-security-6
+# Sample for possible CSRF token bug in Spring Security 6
 Sample project for https://github.com/spring-projects/spring-security/issues/12869
 
 To reproduce the behaviour described in the issue, run the Spring Boot application in this project.
