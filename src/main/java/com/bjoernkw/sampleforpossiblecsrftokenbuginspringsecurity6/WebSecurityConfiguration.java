@@ -15,7 +15,6 @@ public class WebSecurityConfiguration {
         // see https://docs.spring.io/spring-security/reference/5.8/migration/servlet/exploits.html
         CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
         XorCsrfTokenRequestAttributeHandler delegate = new XorCsrfTokenRequestAttributeHandler();
-        delegate.setCsrfRequestAttributeName("_csrf");
 
         return http
                 .authorizeHttpRequests(
@@ -29,7 +28,7 @@ public class WebSecurityConfiguration {
                 .csrf(
                         csrf -> csrf
                                 .csrfTokenRepository(tokenRepository)
-                                .csrfTokenRequestHandler(delegate)
+                                .csrfTokenRequestHandler(delegate::handle)
                 )
                 .build();
     }
