@@ -12,7 +12,8 @@ public class WebSecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // see https://docs.spring.io/spring-security/reference/5.8/migration/servlet/exploits.html
+        // see https://docs.spring.io/spring-security/reference/5.8/migration/servlet/exploits.html and
+        // https://docs.spring.io/spring-security/reference/5.8/migration/servlet/exploits.html#_i_am_using_angularjs_or_another_javascript_framework
         CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
         XorCsrfTokenRequestAttributeHandler delegate = new XorCsrfTokenRequestAttributeHandler();
 
@@ -28,7 +29,7 @@ public class WebSecurityConfiguration {
                 .csrf(
                         csrf -> csrf
                                 .csrfTokenRepository(tokenRepository)
-                                .csrfTokenRequestHandler(delegate::handle)
+                                .csrfTokenRequestHandler(delegate::handle) // delegate::handle is required here to ensure proper CSRF token handling
                 )
                 .build();
     }

@@ -15,3 +15,17 @@ This variable subsequently is used as an `X-XSRF-TOKEN` request header for the P
 **Actual outcome**: The request fails with HTTP 403 and this log message from the Spring Boot application:
 
 "*2023-03-16T11:59:12.366+01:00 DEBUG 81085 --- [nio-8080-exec-2] o.s.security.web.csrf.CsrfFilter         : Invalid CSRF token found for http://localhost:8080/sample*".
+
+
+## Update: How to fix the issue
+
+The issue can be fixed by referring to `delegate::handle` for the `csrfTokenRequestHandler` instead of `delegate`:
+
+```java
+// ...
+.csrf(
+        csrf -> csrf
+                .csrfTokenRepository(tokenRepository)
+                .csrfTokenRequestHandler(delegate::handle)
+)
+```
