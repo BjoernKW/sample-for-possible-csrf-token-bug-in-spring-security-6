@@ -2,6 +2,7 @@ package com.bjoernkw.sampleforpossiblecsrftokenbuginspringsecurity6;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -31,6 +32,7 @@ public class WebSecurityConfiguration {
                                 .csrfTokenRepository(tokenRepository)
                                 .csrfTokenRequestHandler(delegate::handle) // delegate::handle is required here to ensure proper CSRF token handling
                 )
+                .formLogin(Customizer.withDefaults())
                 .build();
     }
 }
